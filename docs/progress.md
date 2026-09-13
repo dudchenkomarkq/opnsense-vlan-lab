@@ -20,9 +20,6 @@ Disabled "Block private networks" on WAN — required because VirtualBox NAT use
 
 \- Configured 802.1Q sub-interface on Debian host: enp0s8.10, static 10.0.10.2/24
 
-\- Verified: see \[tests/connectivity-tests.md](../tests/connectivity-tests.md)
+- Verified: see [tests/connectivity-tests.md](../tests/connectivity-tests.md)
 
-
-
-!\[firewall rule](images/vlan10\_MGMT\_de\_bian802.1Q/2.png)
-
+![Firewall rule](images/vlan10_MGMT_debian802.1Q/2.png)

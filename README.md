@@ -9,4 +9,6 @@
 ### 🚧 Status: In progress
 Building a segmented lab network with VLANs, DHCP/DNS, and WireGuard VPN using OPNsense.
 
+
 📋 [See detailed build log](docs/progress.md)
+

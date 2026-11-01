@@ -41,3 +41,6 @@ ip route
 ping -c 4 192.168.56.10
 ping -c 4 8.8.8.8
 ```
+![ip route](../images/tests_vlan10/1.png)
+![...](../images/tests_vlan10/2.png)
+![...](../images/tests_vlan10/3.png)

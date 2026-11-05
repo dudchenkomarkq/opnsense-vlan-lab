@@ -25,6 +25,16 @@
 
 ![SRV firewall rule](images/vlan20_SRV/2.png)
 
+## VLAN 30 (Workstations): done
+
+- Created the VLAN device on OPNsense: parent `em1` (LAN), tag 30, description WS (`vlan03`).
+- Assigned it as an interface with static IPv4 `10.0.30.1/24`.
+- Added a firewall rule: Pass, source WS net, destination any (temporary, to be restricted later).
+- Created the workstation host as a Full Clone with a new MAC and an 802.1Q sub-interface `enp0s8.30`, static `10.0.30.2/24`, gateway `10.0.30.1`.
+- Verified: see [tests/connectivity-tests.md](tests/connectivity-tests.md).
+
+![WS firewall rule](images/vlan30_WS/2.png)
+
 ## Pitfalls
 
 - **Sub-interface lost after reboot.** `ip link add` is not persistent. Fixed with `/etc/network/interfaces`, the `vlan` package and `8021q` in `/etc/modules`.
@@ -32,4 +42,3 @@
 - **"Network is unreachable" on ping to 8.8.8.8 and 192.168.56.10.** Not a firewall issue: the host had no default route. Fixed with `gateway 10.0.10.1`.
 - **One host, one VLAN.** The clone must drop the old `enp0s8.10`, otherwise Linux routes between VLANs itself and bypasses the firewall.
 
-## VLAN 30 (Workstations): in progress

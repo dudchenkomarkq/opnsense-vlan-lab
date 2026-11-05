@@ -93,3 +93,13 @@ The last ping is an inter-VLAN baseline (SRV to MGMT through OPNsense). It passe
 ![ip route](../images/tests_vlan20/2.png)
 
 ![MGMT host](../images/tests_vlan20/5.png)
+
+## VLAN 30 (Workstations) on the Debian workstation host
+
+Same steps as for VLAN 20, with these values: sub-interface `enp0s8.30`, address `10.0.30.2/24`, gateway `10.0.30.1`. The host is a Full Clone with new MAC addresses, and the old `enp0s8.20` is removed so the host stays in a single VLAN.
+
+### Verification (before firewall hardening)
+
+The same checks as for VLAN 20 (`ip -br addr`, `ip route`, pings to the gateway, `192.168.56.10`, `8.8.8.8`), plus an inter-VLAN baseline ping to `10.0.20.2` (WS to SRV).
+
+![tests](../images/tests_vlan30)

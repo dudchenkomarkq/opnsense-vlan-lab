@@ -103,3 +103,14 @@ Same steps as for VLAN 20, with these values: sub-interface `enp0s8.30`, address
 The same checks as for VLAN 20 (`ip -br addr`, `ip route`, pings to the gateway, `192.168.56.10`, `8.8.8.8`), plus an inter-VLAN baseline ping to `10.0.20.2` (WS to SRV).
 
 ![tests](../images/tests_vlan30)
+
+
+## VLAN 40 (Guest/DMZ) on the Debian guest host
+
+Same steps as for VLAN 30, with these values: sub-interface `enp0s8.40`, address `10.0.40.2/24`, gateway `10.0.40.1`. The host is a Full Clone with new MAC addresses, and the old `enp0s8.30` is removed so the host stays in a single VLAN.
+
+### Verification (before firewall hardening)
+
+The same checks as for VLAN 30 (`ip -br addr`, `ip route`, pings to the gateway, `192.168.56.10`, `8.8.8.8`), plus an inter-VLAN baseline ping to `10.0.30.2` (GUEST to WS).
+
+![tests](../images/tests_vlan40)

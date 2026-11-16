@@ -35,6 +35,17 @@
 
 ![WS firewall rule](images/vlan30_WS/2.png)
 
+## VLAN 40 (Guest/DMZ): done
+
+- Created the VLAN device on OPNsense: parent `em1` (LAN), tag 40, description GUEST (`vlan04`).
+- Assigned it as an interface with static IPv4 `10.0.40.1/24`.
+- Added a firewall rule: Pass, source GUEST net, destination any (temporary, to be restricted later).
+- Created the guest host as a Full Clone with a new MAC and an 802.1Q sub-interface `enp0s8.40`, static `10.0.40.2/24`, gateway `10.0.40.1`.
+- Verified: see [tests/connectivity-tests.md](tests/connectivity-tests.md).
+
+![GUEST firewall rule](images/vlan40_GUEST/3.png)
+
+
 ## Pitfalls
 
 - **Sub-interface lost after reboot.** `ip link add` is not persistent. Fixed with `/etc/network/interfaces`, the `vlan` package and `8021q` in `/etc/modules`.

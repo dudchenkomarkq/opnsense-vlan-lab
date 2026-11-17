@@ -45,7 +45,7 @@
 
 ![GUEST firewall rule](images/vlan40_GUEST/3.png)
 
-## DHCP and DNS: in progress
+## DHCP and DNS: done
 
 - DNS: Unbound listens on all VLAN interfaces.
 - DHCP: Kea DHCPv4, one subnet per VLAN with pool `.100-.199`; gateway and DNS are taken from the VLAN interface address (`Auto collect option data`).

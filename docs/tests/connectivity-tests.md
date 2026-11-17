@@ -114,3 +114,35 @@ Same steps as for VLAN 30, with these values: sub-interface `enp0s8.40`, address
 The same checks as for VLAN 30 (`ip -br addr`, `ip route`, pings to the gateway, `192.168.56.10`, `8.8.8.8`), plus an inter-VLAN baseline ping to `10.0.30.2` (GUEST to WS).
 
 ![tests](../images/tests_vlan40)
+
+
+## DHCP and DNS
+
+OPNsense serves DHCP with Kea (one subnet per VLAN, pool `.100-.199`) and DNS with Unbound. The gateway and DNS server handed to clients are the VLAN interface address (`.1`).
+
+### VLAN 10 (Management): DHCP client
+
+The host `enp0s8.10` was switched from a static address to DHCP (`iface enp0s8.10 inet dhcp`).
+
+```bash
+ip -br addr
+ip route
+cat /etc/resolv.conf
+ping -c 4 debian.org
+```
+
+![DHCP client\DNS client](../images/dhcp_dns/3-dhcp-dns-client.png)
+
+![Kea leases](../images/dhcp_dns/4-leases-mgmt.png)
+
+### VLANs 20, 30, 40
+
+Same steps as for VLAN 10 (subnet and pool in Kea, host switched to DHCP). Results are in the screenshots below.
+
+![20](../images/dhcp_dns/20.png)
+
+![30](../images/dhcp_dns/30.png)
+
+![40](../images/dhcp_dns/40.png)
+
+![Leases for all VLANs](../images/dhcp_dns/6-leases-all.png)

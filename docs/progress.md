@@ -45,6 +45,17 @@
 
 ![GUEST firewall rule](images/vlan40_GUEST/3.png)
 
+## DHCP and DNS: in progress
+
+- DNS: Unbound listens on all VLAN interfaces.
+- DHCP: Kea DHCPv4, one subnet per VLAN with pool `.100-.199`; gateway and DNS are taken from the VLAN interface address (`Auto collect option data`).
+- Dnsmasq is disabled: it held UDP/67 and conflicted with Kea.
+- VLAN 10: done, the host gets `10.0.10.100`, gateway and DNS from OPNsense.
+- VLANs 20, 30, 40: done.
+- Verified: see [tests/connectivity-tests.md](tests/connectivity-tests.md).
+
+![Kea subnet](images/dhcp_dns/2-dhcp-mgmt.png)
+
 
 ## Pitfalls
 
@@ -52,4 +63,4 @@
 - **Parent interface down after reboot.** `enp0s8` must be declared too (`auto enp0s8`, `iface enp0s8 inet manual`).
 - **"Network is unreachable" on ping to 8.8.8.8 and 192.168.56.10.** Not a firewall issue: the host had no default route. Fixed with `gateway 10.0.10.1`.
 - **One host, one VLAN.** The clone must drop the old `enp0s8.10`, otherwise Linux routes between VLANs itself and bypasses the firewall.
-
+- **No DHCP lease (169.254.x.x on the client).** Kea logged `DHCPSRV_OPEN_SOCKET_FAIL`: Dnsmasq already held UDP/67. Found with `sockstat -4 -l | grep ':67'` and fixed by disabling Dnsmasq.
